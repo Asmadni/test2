@@ -1,541 +1,278 @@
-/**
- * LEVEL UP — ACCESSIBILITY AGENCY
- * main.js — Core interactive behaviours
- *
- * Principles:
- *  - All JS enhances accessible HTML — the site works without JS
- *  - No interactions that rely on colour alone
- *  - All custom widgets follow ARIA Authoring Practices Guide (APG)
- *  - Respects prefers-reduced-motion at the JS level
- *  - Keyboard navigation tested throughout
- *
- * WCAG criteria addressed here:
- *  2.1.1 Keyboard — all interactions keyboard accessible
- *  2.4.3 Focus Order — programmatic focus management on modal/panels
- *  2.4.7 Focus Visible — ensure focus is never lost
- *  3.3.1 Error Identification — form errors identified and announced
- *  3.3.3 Error Suggestion — descriptive error messages provided
- *  4.1.2 Name, Role, Value — aria-expanded, aria-selected, aria-hidden updated
- *  4.1.3 Status Messages — success/error announced without focus move
- */
-
 'use strict';
+/* ================================================================
+   LEVEL UP — main.js
+   All interactions are keyboard-accessible and AT-friendly.
+   Respects prefers-reduced-motion throughout.
+   WCAG criteria: 2.1.1, 2.4.3, 3.3.1, 3.3.3, 4.1.2, 4.1.3
+================================================================ */
 
-/* ─── Utility: Reduced motion preference check ───────────────────────────── */
-const prefersReducedMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches;
+const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ─── 1. MOBILE NAVIGATION ───────────────────────────────────────────────── */
-/**
- * Accessible hamburger menu.
- * WCAG 4.1.2: aria-expanded toggles on button, aria-hidden on panel.
- * Focus is managed — first link receives focus when menu opens.
- */
-(function initMobileNav() {
-  const toggle = document.getElementById('menu-toggle');
-  const nav    = document.getElementById('mobile-nav');
-  if (!toggle || !nav) return;
+/* ── 1. MOBILE NAV ──────────────────────────────────────────── */
+(function () {
+  var btn = document.getElementById('menu-toggle');
+  var nav = document.getElementById('mobile-nav');
+  if (!btn || !nav) return;
 
-  // Close menu when clicking outside
-  document.addEventListener('click', function (e) {
-    if (!toggle.contains(e.target) && !nav.contains(e.target)) {
-      closeMenu();
-    }
-  });
-
-  toggle.addEventListener('click', function () {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    isOpen ? closeMenu() : openMenu();
-  });
-
-  // Close on Escape — WCAG 2.1.2 (inverse: allow escape from open panel)
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-      closeMenu();
-      toggle.focus(); // Return focus to trigger — WCAG 2.4.3
-    }
-  });
-
-  // Close menu when a nav link is activated
-  nav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  function openMenu() {
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Close navigation menu');
+  function open() {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.setAttribute('aria-label', 'Close menu');
     nav.classList.add('is-open');
     nav.setAttribute('aria-hidden', 'false');
-    // Move focus to first link for keyboard users — WCAG 2.4.3
-    const firstLink = nav.querySelector('a, button');
-    if (firstLink) {
-      setTimeout(function () { firstLink.focus(); }, 50);
-    }
+    var first = nav.querySelector('a, button');
+    if (first) setTimeout(function () { first.focus(); }, 50);
   }
-
-  function closeMenu() {
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open navigation menu');
+  function close() {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
     nav.classList.remove('is-open');
     nav.setAttribute('aria-hidden', 'true');
   }
-})();
 
-/* ─── 2. STICKY CTA BAR ──────────────────────────────────────────────────── */
-/**
- * Shows sticky CTA after user scrolls past the hero section.
- * Intersection Observer: performant, no scroll event polling.
- * Dismiss is stored in sessionStorage — persists for the session.
- */
-(function initStickyCta() {
-  const stickyCta = document.getElementById('sticky-cta');
-  const dismissBtn = document.getElementById('sticky-cta-dismiss');
-  const hero = document.getElementById('hero');
-  if (!stickyCta || !hero) return;
+  btn.addEventListener('click', function () {
+    btn.getAttribute('aria-expanded') === 'true' ? close() : open();
+  });
 
-  // Don't show if dismissed this session
-  if (sessionStorage.getItem('stickyCta') === 'dismissed') return;
-
-  const observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) {
-          stickyCta.classList.add('is-visible');
-        } else {
-          stickyCta.classList.remove('is-visible');
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  observer.observe(hero);
-
-  if (dismissBtn) {
-    dismissBtn.addEventListener('click', function () {
-      stickyCta.classList.remove('is-visible');
-      sessionStorage.setItem('stickyCta', 'dismissed');
-      observer.disconnect();
-    });
-  }
-})();
-
-/* ─── 3. ACCESSIBLE TAB WIDGET ───────────────────────────────────────────── */
-/**
- * APG Tab pattern — keyboard: Arrow keys, Home, End, Tab, Enter/Space.
- * WCAG 2.1.1: Full keyboard support.
- * WCAG 4.1.2: aria-selected, tabindex, hidden managed dynamically.
- *
- * https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
- */
-(function initTabs() {
-  const tabLists = document.querySelectorAll('[role="tablist"]');
-  if (!tabLists.length) return;
-
-  tabLists.forEach(function (tabList) {
-    const tabs   = Array.from(tabList.querySelectorAll('[role="tab"]'));
-    const panels = tabs.map(function (tab) {
-      return document.getElementById(tab.getAttribute('aria-controls'));
-    });
-
-    tabs.forEach(function (tab, index) {
-      tab.addEventListener('click', function () { activateTab(index); });
-
-      tab.addEventListener('keydown', function (e) {
-        let newIndex;
-
-        switch (e.key) {
-          case 'ArrowRight':
-          case 'ArrowDown':
-            e.preventDefault();
-            newIndex = (index + 1) % tabs.length;
-            activateTab(newIndex);
-            tabs[newIndex].focus();
-            break;
-
-          case 'ArrowLeft':
-          case 'ArrowUp':
-            e.preventDefault();
-            newIndex = (index - 1 + tabs.length) % tabs.length;
-            activateTab(newIndex);
-            tabs[newIndex].focus();
-            break;
-
-          case 'Home':
-            e.preventDefault();
-            activateTab(0);
-            tabs[0].focus();
-            break;
-
-          case 'End':
-            e.preventDefault();
-            activateTab(tabs.length - 1);
-            tabs[tabs.length - 1].focus();
-            break;
-        }
-      });
-    });
-
-    function activateTab(activeIndex) {
-      tabs.forEach(function (tab, i) {
-        const isActive = i === activeIndex;
-        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        tab.setAttribute('tabindex', isActive ? '0' : '-1');
-      });
-
-      panels.forEach(function (panel, i) {
-        if (!panel) return;
-        if (i === activeIndex) {
-          panel.classList.add('is-active');
-          panel.removeAttribute('hidden');
-        } else {
-          panel.classList.remove('is-active');
-          panel.setAttribute('hidden', '');
-        }
-      });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+      close(); btn.focus();
     }
   });
-})();
 
-/* ─── 4. SMOOTH SCROLL WITH FOCUS MANAGEMENT ─────────────────────────────── */
-/**
- * Intercepts anchor links that point to in-page sections.
- * After scroll, programmatically focuses the target element.
- * This ensures keyboard users don't lose their place — WCAG 2.4.3.
- *
- * Native CSS scroll-behavior:smooth is set, but we add focus for AT.
- */
-(function initAnchorScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      const targetId = anchor.getAttribute('href').slice(1);
-      if (!targetId) return;
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) close();
+  });
 
-      const target = document.getElementById(targetId);
+  nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+}());
+
+/* ── 2. STICKY CTA ──────────────────────────────────────────── */
+(function () {
+  var bar     = document.getElementById('sticky-cta');
+  var dismiss = document.getElementById('sticky-dismiss');
+  var hero    = document.getElementById('hero');
+  if (!bar || !hero) return;
+  if (sessionStorage.getItem('cta') === 'off') return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      bar.classList.toggle('is-visible', !e.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+  io.observe(hero);
+
+  if (dismiss) {
+    dismiss.addEventListener('click', function () {
+      bar.classList.remove('is-visible');
+      sessionStorage.setItem('cta', 'off');
+      io.disconnect();
+    });
+  }
+}());
+
+/* ── 3. TABS (APG pattern) ──────────────────────────────────── */
+(function () {
+  document.querySelectorAll('[role="tablist"]').forEach(function (list) {
+    var tabs   = Array.from(list.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+
+    function activate(i) {
+      tabs.forEach(function (t, j) {
+        t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+        t.setAttribute('tabindex', j === i ? '0' : '-1');
+      });
+      panels.forEach(function (p, j) {
+        if (!p) return;
+        if (j === i) { p.classList.add('is-active'); p.removeAttribute('hidden'); }
+        else          { p.classList.remove('is-active'); p.setAttribute('hidden', ''); }
+      });
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { activate(i); });
+      tab.addEventListener('keydown', function (e) {
+        var next;
+        if      (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); next = (i + 1) % tabs.length; }
+        else if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); next = (i - 1 + tabs.length) % tabs.length; }
+        else if (e.key === 'Home')  { e.preventDefault(); next = 0; }
+        else if (e.key === 'End')   { e.preventDefault(); next = tabs.length - 1; }
+        if (next !== undefined) { activate(next); tabs[next].focus(); }
+      });
+    });
+  });
+}());
+
+/* ── 4. SMOOTH SCROLL + FOCUS MANAGEMENT ───────────────────── */
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var target = document.getElementById(id);
       if (!target) return;
-
       e.preventDefault();
 
-      // Close mobile nav if open
-      const mobileNav = document.getElementById('mobile-nav');
-      if (mobileNav && mobileNav.classList.contains('is-open')) {
+      /* Close mobile nav if open */
+      var nav = document.getElementById('mobile-nav');
+      if (nav && nav.classList.contains('is-open')) {
         document.getElementById('menu-toggle').click();
       }
 
-      target.scrollIntoView({
-        behavior: prefersReducedMotion ? 'instant' : 'smooth',
-        block: 'start'
-      });
-
-      // Set focus after scroll — allows keyboard users to continue navigation
-      // tabindex="-1" allows focus on non-interactive elements
-      if (!target.hasAttribute('tabindex')) {
-        target.setAttribute('tabindex', '-1');
-      }
-
-      setTimeout(function () {
-        target.focus({ preventScroll: true });
-      }, prefersReducedMotion ? 0 : 400);
+      target.scrollIntoView({ behavior: noMotion ? 'instant' : 'smooth', block: 'start' });
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      setTimeout(function () { target.focus({ preventScroll: true }); }, noMotion ? 0 : 380);
     });
   });
-})();
+}());
 
-/* ─── 5. FORM VALIDATION ─────────────────────────────────────────────────── */
-/**
- * Accessible form validation.
- *
- * WCAG 3.3.1 Error Identification: Errors described in text, not colour only.
- * WCAG 3.3.2 Labels: Labels always visible (not replaced by errors).
- * WCAG 3.3.3 Error Suggestion: Descriptive error messages with correct format.
- * WCAG 4.1.3 Status Messages: Success message announced via role="status".
- *
- * Pattern:
- *  1. Validate on submit
- *  2. Show all errors at once (not one-by-one)
- *  3. Move focus to first errored field — WCAG 2.4.3
- *  4. Re-validate field on input after first submit attempt
- */
-(function initForm() {
-  const form          = document.getElementById('audit-request-form');
-  const successMsg    = document.getElementById('form-success');
+/* ── 5. FORM VALIDATION ─────────────────────────────────────── */
+(function () {
+  var form    = document.getElementById('audit-form-el');
+  var success = document.getElementById('form-success');
   if (!form) return;
 
-  let hasAttemptedSubmit = false;
+  var tried = false;
 
-  // ── Validators ──────────────────────────────────────────────────────
-  const validators = {
-    'field-name': function (val) {
-      return val.trim().length >= 2 ? null : 'Please enter your name';
+  var rules = {
+    'f-name':    function (v)    { return v.trim().length >= 2 ? null : 'Please enter your name'; },
+    'f-email':   function (v)    { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : 'Please enter a valid email address'; },
+    'f-url':     function (v)    {
+      try { var u = new URL(v); return (u.protocol === 'https:' || u.protocol === 'http:') ? null : 'URL must start with https://'; }
+      catch (x) { return 'Please enter a valid URL (e.g. https://yoursite.com)'; }
     },
-    'field-email': function (val) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!val.trim()) return 'Please enter your email address';
-      if (!emailRegex.test(val)) return 'Please enter a valid email address (e.g. name@company.com)';
-      return null;
-    },
-    'field-url': function (val) {
-      if (!val.trim()) return 'Please enter your website URL';
-      try {
-        const url = new URL(val);
-        if (!['http:', 'https:'].includes(url.protocol)) {
-          return 'URL must start with https:// or http://';
-        }
-        return null;
-      } catch {
-        return 'Please enter a valid URL (e.g. https://yoursite.com)';
-      }
-    },
-    'field-consent': function (_, el) {
-      return el.checked ? null : 'Please accept to receive your report';
-    }
+    'f-consent': function (v, el) { return el.checked ? null : 'Please accept to receive your report'; }
   };
 
-  // ── Show/hide error for a field ──────────────────────────────────────
-  function setFieldError(fieldId, message) {
-    const field    = document.getElementById(fieldId);
-    const errorEl  = document.getElementById('error-' + fieldId.replace('field-', ''));
-
+  function setErr(id, msg) {
+    var field = document.getElementById(id);
+    var err   = document.getElementById('e-' + id.replace('f-', ''));
     if (!field) return;
-
-    if (message) {
+    if (msg) {
       field.setAttribute('aria-invalid', 'true');
-      if (errorEl) {
-        errorEl.textContent = message; // Update text content first
-        // Prepend icon back (simple recreation)
-        errorEl.insertAdjacentHTML(
-          'afterbegin',
-          '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg> '
-        );
-        errorEl.classList.add('is-visible');
-      }
+      if (err) { err.lastChild.textContent = msg; err.classList.add('is-visible'); }
     } else {
       field.setAttribute('aria-invalid', 'false');
-      if (errorEl) {
-        errorEl.classList.remove('is-visible');
-        errorEl.textContent = '';
-      }
+      if (err) err.classList.remove('is-visible');
     }
   }
 
-  // ── Validate single field ────────────────────────────────────────────
-  function validateField(fieldId) {
-    const validator = validators[fieldId];
-    if (!validator) return true;
-
-    const field = document.getElementById(fieldId);
-    if (!field) return true;
-
-    const error = validator(field.value, field);
-    setFieldError(fieldId, error);
-    return !error;
+  function validate(id) {
+    var field = document.getElementById(id);
+    if (!field || !rules[id]) return true;
+    var msg = rules[id](field.value, field);
+    setErr(id, msg);
+    return !msg;
   }
 
-  // ── Live validation after first submit attempt ───────────────────────
-  Object.keys(validators).forEach(function (fieldId) {
-    const field = document.getElementById(fieldId);
-    if (!field) return;
-
-    const eventType = field.type === 'checkbox' ? 'change' : 'input';
-    field.addEventListener(eventType, function () {
-      if (hasAttemptedSubmit) {
-        validateField(fieldId);
-      }
+  Object.keys(rules).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', function () {
+      if (tried) validate(id);
     });
   });
 
-  // ── Submit handler ───────────────────────────────────────────────────
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    hasAttemptedSubmit = true;
-
-    // Validate all fields
-    const fieldIds   = Object.keys(validators);
-    const results    = fieldIds.map(validateField);
-    const isValid    = results.every(Boolean);
-
-    if (!isValid) {
-      // Move focus to first errored field — WCAG 2.4.3
-      const firstErrorId = fieldIds.find(function (id) { return !validateField(id); });
-      // (we just ran validateField again above; find first still-invalid)
-      // Re-check by aria-invalid
-      const firstInvalid = form.querySelector('[aria-invalid="true"]');
-      if (firstInvalid) {
-        firstInvalid.focus();
-      }
+    tried = true;
+    var ids    = Object.keys(rules);
+    var ok     = ids.every(function (id) { return validate(id); });
+    if (!ok) {
+      var first = form.querySelector('[aria-invalid="true"]');
+      if (first) first.focus();
       return;
     }
 
-    // Simulate async submission
-    const submitBtn = form.querySelector('[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-      submitBtn.setAttribute('aria-busy', 'true');
-    }
+    var btn = form.querySelector('[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
-    // Simulate network delay (replace with real fetch in production)
     setTimeout(function () {
-      // Hide form fields, show success message
-      Array.from(form.elements).forEach(function (el) {
-        if (el !== successMsg && el.closest('.form-success-message') === null) {
-          const group = el.closest('.form-group, .form-checkbox-group');
-          if (group) group.style.display = 'none';
-        }
+      form.querySelectorAll('.form-group, .form-check, .form-note').forEach(function (el) {
+        el.style.display = 'none';
       });
-      if (submitBtn) submitBtn.style.display = 'none';
-      const privacyNote = form.querySelector('.form-privacy-note');
-      if (privacyNote) privacyNote.style.display = 'none';
-
-      // WCAG 4.1.3: Status message announced by AT without focus move
-      // role="status" + aria-live="polite" on the element handle this
-      successMsg.classList.add('is-visible');
-      successMsg.focus(); // Also move focus for keyboard users
+      if (btn) btn.style.display = 'none';
+      success.classList.add('is-visible');
+      success.focus();
     }, 1200);
   });
-})();
+}());
 
-/* ─── 6. SCORE METER ANIMATION ───────────────────────────────────────────── */
-/**
- * Animate score meter fills when they scroll into view.
- * Uses IntersectionObserver — no polling.
- * Respects prefers-reduced-motion: if set, shows final state instantly.
- */
-(function initScoreMeters() {
-  const fills = document.querySelectorAll('.score-meter__fill');
+/* ── 6. SCORE METER ANIMATION ───────────────────────────────── */
+(function () {
+  if (noMotion) return;
+  var fills = document.querySelectorAll('.meter__fill');
   if (!fills.length) return;
-
-  if (prefersReducedMotion) return; // Already at final widths via CSS inline
-
-  // Capture target widths, reset to 0, animate on scroll-in
-  const targets = [];
-  fills.forEach(function (fill) {
-    const targetWidth = fill.style.width;
-    targets.push({ el: fill, width: targetWidth });
-    fill.style.width = '0%';
-    fill.style.transition = 'none';
+  var targets = [];
+  fills.forEach(function (f) {
+    targets.push({ el: f, w: f.style.width });
+    f.style.width = '0%'; f.style.transition = 'none';
   });
-
-  const observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          const target = targets.find(function (t) { return t.el === entry.target; });
-          if (target) {
-            setTimeout(function () {
-              target.el.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
-              target.el.style.width = target.width;
-            }, 100);
-            observer.unobserve(entry.target);
-          }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var t = targets.find(function (x) { return x.el === entry.target; });
+        if (t) {
+          setTimeout(function () {
+            t.el.style.transition = 'width .9s cubic-bezier(.4,0,.2,1)';
+            t.el.style.width = t.w;
+          }, 80);
+          io.unobserve(entry.target);
         }
-      });
-    },
-    { threshold: 0.2 }
-  );
+      }
+    });
+  }, { threshold: 0.2 });
+  fills.forEach(function (f) { io.observe(f); });
+}());
 
-  fills.forEach(function (fill) { observer.observe(fill); });
-})();
+/* ── 7. SCROLL REVEAL ───────────────────────────────────────── */
+(function () {
+  if (noMotion) return;
+  var s = document.createElement('style');
+  s.textContent = '.reveal{opacity:0;transform:translateY(20px);transition:opacity .45s ease,transform .45s ease}.reveal.in{opacity:1;transform:none}';
+  document.head.appendChild(s);
+  var els = document.querySelectorAll('.svc-card,.testi-card,.stat-card,.trust-badge,.case-card,.audit-benefit,.issue');
+  els.forEach(function (el) { el.classList.add('reveal'); });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  els.forEach(function (el) { io.observe(el); });
+}());
 
-/* ─── 7. SCROLL-TRIGGERED REVEAL ANIMATIONS ─────────────────────────────── */
-/**
- * Subtle fade-up for section content on scroll.
- * WCAG 2.3.3: Only runs if user has NOT set prefers-reduced-motion.
- * CSS class-based — keeps JS minimal.
- */
-(function initScrollReveal() {
-  if (prefersReducedMotion) return;
+/* ── 8. ACTIVE NAV ──────────────────────────────────────────── */
+(function () {
+  var links    = document.querySelectorAll('.primary-nav__link');
+  var sections = document.querySelectorAll('section[id]');
+  if (!links.length || !sections.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        links.forEach(function (l) {
+          l.getAttribute('href') === '#' + e.target.id
+            ? l.setAttribute('aria-current', 'page')
+            : l.removeAttribute('aria-current');
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(function (s) { io.observe(s); });
+}());
 
-  // Add CSS for the animation (injected so it's only present when motion OK)
-  const style = document.createElement('style');
-  style.textContent = `
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 500ms ease, transform 500ms ease;
-    }
-    .reveal.is-revealed {
-      opacity: 1;
-      transform: none;
-    }
-  `;
-  document.head.appendChild(style);
+/* ── 9. FOOTER YEAR ─────────────────────────────────────────── */
+(function () {
+  var el = document.getElementById('yr');
+  if (el) el.textContent = new Date().getFullYear();
+}());
 
-  // Elements to reveal
-  const revealEls = document.querySelectorAll(
-    '.service-card, .testimonial-card, .stat-card, .trust-badge, .case-card, .audit-benefit, .demo-issue'
-  );
-
-  revealEls.forEach(function (el) { el.classList.add('reveal'); });
-
-  const observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  revealEls.forEach(function (el) { observer.observe(el); });
-})();
-
-/* ─── 8. ACTIVE NAV LINK HIGHLIGHTING ────────────────────────────────────── */
-/**
- * Update aria-current="page" on nav links as user scrolls.
- * WCAG 2.4.8: Location (AAA) — helps users know where they are.
- */
-(function initActiveNav() {
-  const sections  = document.querySelectorAll('section[id]');
-  const navLinks  = document.querySelectorAll('.primary-nav__link');
-  if (!sections.length || !navLinks.length) return;
-
-  const observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          navLinks.forEach(function (link) {
-            const href = link.getAttribute('href');
-            if (href === '#' + entry.target.id) {
-              link.setAttribute('aria-current', 'page');
-            } else {
-              link.removeAttribute('aria-current');
-            }
-          });
-        }
-      });
-    },
-    { threshold: 0.4 }
-  );
-
-  sections.forEach(function (section) { observer.observe(section); });
-})();
-
-/* ─── 9. FOOTER YEAR ─────────────────────────────────────────────────────── */
-(function updateFooterYear() {
-  const yearEl = document.getElementById('footer-year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-})();
-
-/* ─── 10. EXTERNAL LINK ANNOUNCEMENTS ────────────────────────────────────── */
-/**
- * WCAG 2.4.4: Link Purpose — external links should indicate they open a new tab.
- * Adds a screen-reader-only " (opens in new tab)" text to all target="_blank" links.
- */
-(function announceExternalLinks() {
-  document.querySelectorAll('a[target="_blank"]').forEach(function (link) {
-    // Only add if not already present
-    if (!link.querySelector('.sr-only[data-external]')) {
-      const notice = document.createElement('span');
-      notice.className = 'sr-only';
-      notice.setAttribute('data-external', '');
-      notice.textContent = ' (opens in new tab)';
-      link.appendChild(notice);
+/* ── 10. EXTERNAL LINK NOTICES ──────────────────────────────── */
+(function () {
+  document.querySelectorAll('a[target="_blank"]').forEach(function (a) {
+    if (!a.querySelector('[data-ext]')) {
+      var sp = document.createElement('span');
+      sp.className = 'sr-only'; sp.setAttribute('data-ext', '');
+      sp.textContent = ' (opens in new tab)';
+      a.appendChild(sp);
     }
   });
-})();
+}());
