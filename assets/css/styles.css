@@ -876,4 +876,4 @@ select.form-input {
 @media (forced-colors: active) {
   .btn--primary, .btn--outline { border: 2px solid ButtonText; }
   .form-input { border: 2px solid FieldText; }
-     }
+}
