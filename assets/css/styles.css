@@ -65,8 +65,10 @@ body {
 /* All text breaks safely — fixes "accessibility" overflow bug */
 h1, h2, h3, h4, h5, h6, p, li, a, span, blockquote, label {
   overflow-wrap: break-word;
-  word-break:    break-word;
-  hyphens:       auto;
+  /* word-break only as last resort — prevents "open-ing" splits */
+  word-break: normal;
+  /* NO hyphens on body text — looks unprofessional */
+  hyphens: none;
 }
 
 img, svg { display: block; max-width: 100%; height: auto; }
@@ -155,6 +157,8 @@ a:visited{ color: #7b2fb5; }
   max-width: 60ch;
   line-height: 1.7;
   margin-bottom: 3rem;
+  hyphens: none;
+  word-break: normal;
 }
 
 /* ── 6. BUTTONS ──────────────────────────────────────────────── */
@@ -364,6 +368,9 @@ a:visited{ color: #7b2fb5; }
   font-size: clamp(1rem, 2.5vw, 1.1875rem);
   color: rgba(255,255,255,.82); line-height: 1.7;
   margin-bottom: 2rem; max-width: 56ch;
+  hyphens: none;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 .hero__ctas {
