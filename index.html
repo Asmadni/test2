@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       LEVEL UP — ACCESSIBILITY AGENCY
+       index.html — Main page
+       
+       WCAG 2.2 AA Target | Lighthouse Target: 97+ Accessibility
+       All semantic landmarks, ARIA roles, and meta tags optimized
+       for screen readers, search engines, and performance.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- WCAG 1.4.4: Viewport meta must NOT disable user scaling -->
+  <!-- Note: NO user-scalable=no or maximum-scale on this page -->
+
+  <!-- ─── SEO / Open Graph ─────────────────────────────────────────── -->
+  <title>Level Up – Web Accessibility Agency | WCAG Compliance Experts</title>
+  <meta name="description" content="Level Up helps businesses become WCAG 2.2 AA compliant, avoid legal risk, and build inclusive products. Free accessibility audit for your website.">
+  <meta name="keywords" content="web accessibility, WCAG compliance, ADA compliance, accessibility audit, screen reader, inclusive design">
+  <meta name="author" content="Level Up Accessibility Agency">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://levelupaccessibility.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://levelupaccessibility.com/">
+  <meta property="og:title" content="Level Up – Web Accessibility Agency">
+  <meta property="og:description" content="WCAG 2.2 AA compliance experts. Free accessibility audit — find out if your site is accessible and legally compliant.">
+  <meta property="og:image" content="assets/images/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Level Up – Web Accessibility Agency">
+  <meta name="twitter:description" content="WCAG 2.2 AA compliance. Free accessibility audit for your website.">
+
+  <!-- ─── Favicons ──────────────────────────────────────────────────── -->
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0a1f6e">
+
+  <!-- ─── Fonts ────────────────────────────────────────────────────── -->
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Syne (display) + Source Serif 4 (body) + JetBrains Mono (code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ─── Stylesheet ────────────────────────────────────────────────── -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- ─── Structured Data (Schema.org) ─────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Level Up Accessibility Agency",
+    "description": "Web accessibility consulting, WCAG compliance audits, and inclusive design services",
+    "url": "https://levelupaccessibility.com",
+    "logo": "https://levelupaccessibility.com/assets/images/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "hello@levelupaccessibility.com"
+    },
+    "serviceType": ["Web Accessibility Audit", "WCAG Compliance", "Accessibility Remediation", "Training"]
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SKIP LINKS — WCAG 2.4.1 Bypass Blocks (A)
+       Must be the FIRST focusable element.
+       Visible on focus, allows keyboard users to jump past repeated nav.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#audit-form">Skip to free audit form</a>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SITE HEADER — landmark <header> + <nav>
+       WCAG: 1.3.1 Info & Relationships, 2.4.1, 4.1.2
+  ═══════════════════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="nav-wrapper">
+
+        <!-- Logo: alt text describes brand, not just "logo" -->
+        <a class="nav-logo" href="/" aria-label="Level Up Accessibility Agency — home">
+          <img
+            src="assets/images/logo.png"
+            alt="Level Up logo: wheelchair symbol with rising bar chart"
+            width="44"
+            height="44"
+          >
+          <span class="nav-logo__text" aria-hidden="true">Level <span>Up</span></span>
+        </a>
+
+        <!-- Primary Nav — WCAG 2.4.3: Logical tab order -->
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <ul class="primary-nav__list" role="list">
+            <li><a class="primary-nav__link" href="#services">Services</a></li>
+            <li><a class="primary-nav__link" href="#portfolio">Work</a></li>
+            <li><a class="primary-nav__link" href="#testimonials">Results</a></li>
+            <li><a class="primary-nav__link" href="#trust">Standards</a></li>
+          </ul>
+        </nav>
+
+        <!-- Desktop CTA — strategic placement for conversion -->
+        <div class="nav-cta">
+          <a class="btn btn--primary" href="#audit-form">Get Free Audit</a>
+        </div>
+
+        <!-- Mobile menu toggle — WCAG 4.1.2: aria-expanded, aria-controls -->
+        <button
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          aria-label="Open navigation menu"
+          type="button"
+        >
+          <span class="menu-toggle__bar" aria-hidden="true"></span>
+          <span class="menu-toggle__bar" aria-hidden="true"></span>
+          <span class="menu-toggle__bar" aria-hidden="true"></span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile navigation panel -->
+    <nav
+      id="mobile-nav"
+      class="mobile-nav"
+      aria-label="Mobile navigation"
+      aria-hidden="true"
+    >
+      <a class="mobile-nav__link" href="#services">Services</a>
+      <a class="mobile-nav__link" href="#portfolio">Work & Results</a>
+      <a class="mobile-nav__link" href="#testimonials">Testimonials</a>
+      <a class="mobile-nav__link" href="#trust">Standards</a>
+      <a class="btn btn--primary" href="#audit-form" style="margin-top:0.5rem">Get Free Audit →</a>
+    </nav>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MAIN CONTENT — landmark <main>
+  ═══════════════════════════════════════════════════════════════════ -->
+  <main id="main-content" tabindex="-1">
+    <!-- tabindex="-1" allows focus to be set programmatically via skip link -->
+
+    <!-- ───────────────────────────────────────────────────────────────
+         HERO SECTION
+         
+         Conversion intent: Immediate value proposition + social proof
+         Accessibility: All decorative elements aria-hidden,
+         meaningful heading hierarchy starts here (h1)
+         WCAG: 1.4.3 contrast, 1.1.1 alt text
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="hero-heading" id="hero">
+
+      <!-- Decorative background — hidden from AT -->
+      <div class="hero__bg-pattern" aria-hidden="true">
+        <div class="hero__grid-lines"></div>
+      </div>
+
+      <div class="container">
+        <div class="hero__content">
+
+          <!-- Left: Copy -->
+          <div class="hero__copy">
+            <div class="hero__eyebrow" aria-hidden="true">
+              <span class="hero__eyebrow-dot"></span>
+              WCAG 2.2 AA Specialists
+            </div>
+
+            <!-- WCAG 1.3.1: h1 is the sole page-level heading -->
+            <h1 class="hero__title" id="hero-heading">
+              Your site has<br>
+              <em>accessibility gaps.</em><br>
+              We fix them.
+            </h1>
+
+            <p class="hero__subtitle">
+              Level Up is an accessibility agency that audits, remediates, and
+              future-proofs websites for WCAG 2.2 AA compliance. We protect your
+              business from legal risk while making your product usable for
+              everyone — including the 1 in 4 adults living with a disability.
+            </p>
+
+            <!-- CTA hierarchy: Primary (audit) + Secondary (learn) -->
+            <div class="hero__cta-group">
+              <!-- Primary conversion: Free audit (lowest friction) -->
+              <a
+                class="btn btn--primary btn--lg"
+                href="#audit-form"
+                aria-describedby="hero-cta-context"
+              >
+                <!-- SVG icons are aria-hidden — button text is accessible label -->
+                <svg class="btn__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                Get Free Audit
+              </a>
+              <!-- Secondary: See our work -->
+              <a class="btn btn--ghost" href="#portfolio">
+                See Our Work
+                <svg class="btn__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <!-- Microcopy: objection handling — no commitment, no spam -->
+            <p id="hero-cta-context" class="hero__trust-strip">
+              <span class="hero__trust-item">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Free, no obligation
+              </span>
+              <span class="hero__trust-item">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Results in 24 hours
+              </span>
+              <span class="hero__trust-item">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                No spam, ever
+              </span>
+            </p>
+          </div>
+
+          <!-- Right: Accessibility score demo card (decorative/supplementary) -->
+          <div class="hero__visual" aria-hidden="true">
+            <!-- This is a visual demo. Data is illustrative, not real-time. -->
+            <div class="hero__score-card">
+              <div class="score-card__header">
+                <div class="score-card__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <div>
+                  <div class="score-card__title">Accessibility Report</div>
+                  <div class="score-card__subtitle">yoursite.com · Scanned just now</div>
+                </div>
+              </div>
+
+              <div class="score-meter">
+                <div class="score-meter__label">
+                  <span class="score-meter__label-text">Accessibility Score</span>
+                  <span class="score-meter__value">42 / 100</span>
+                </div>
+                <div
+                  class="score-meter__bar"
+                  role="progressbar"
+                  aria-valuenow="42"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-label="Accessibility score: 42 out of 100 — failing"
+                >
+                  <div class="score-meter__fill score-meter__fill--red" style="width: 42%"></div>
+                </div>
+              </div>
+
+              <div class="score-meter">
+                <div class="score-meter__label">
+                  <span class="score-meter__label-text">Color Contrast</span>
+                  <span class="score-meter__value" style="color:#fca5a5">11 Fails</span>
+                </div>
+                <div class="score-meter__bar">
+                  <div class="score-meter__fill score-meter__fill--red" style="width: 28%"></div>
+                </div>
+              </div>
+
+              <div class="score-meter">
+                <div class="score-meter__label">
+                  <span class="score-meter__label-text">Keyboard Nav</span>
+                  <span class="score-meter__value" style="color:#fcd34d">Partial</span>
+                </div>
+                <div class="score-meter__bar">
+                  <div class="score-meter__fill score-meter__fill--orange" style="width: 60%"></div>
+                </div>
+              </div>
+
+              <div class="score-meter">
+                <div class="score-meter__label">
+                  <span class="score-meter__label-text">Missing Alt Text</span>
+                  <span class="score-meter__value" style="color:#fca5a5">23 Images</span>
+                </div>
+                <div class="score-meter__bar">
+                  <div class="score-meter__fill score-meter__fill--red" style="width: 15%"></div>
+                </div>
+              </div>
+
+              <div class="score-card__footer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                <span><strong style="color:white">High legal risk.</strong> 7 critical WCAG violations found.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────
+         PROBLEM → SOLUTION SECTION
+         
+         Conversion: Agitate the pain points, then present Level Up as the
+         clear solution. Objection handling through specificity.
+         WCAG: 1.3.1 semantic lists, 1.4.3 contrast
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="problem-section section" aria-labelledby="problem-heading" id="problem">
+      <div class="container">
+
+        <div class="section-label" aria-hidden="true">The Real Picture</div>
+        <h2 class="section-title" id="problem-heading">
+          Most websites fail<br>disabled users — and<br>their owners don't know it.
+        </h2>
+        <p class="section-subtitle">
+          96.3% of home pages have detectable WCAG failures. That's not a
+          niche problem — it's a legal and business liability waiting to happen.
+        </p>
+
+        <div class="problem-grid">
+
+          <!-- Problem card — pain agitation -->
+          <div class="problem-card" aria-labelledby="problem-card-heading">
+            <h3 class="problem-card__title" id="problem-card-heading">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+              Where most sites are failing
+            </h3>
+            <ul class="problem-list" aria-label="Common accessibility problems">
+              <li class="problem-item">
+                <svg class="problem-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                <span><strong>Low contrast text</strong> — invisible to people with low vision and many older users</span>
+              </li>
+              <li class="problem-item">
+                <svg class="problem-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                <span><strong>Missing alt text</strong> — images are completely silent for screen reader users</span>
+              </li>
+              <li class="problem-item">
+                <svg class="problem-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                <span><strong>Keyboard traps</strong> — users who can't use a mouse get stuck and can't proceed</span>
+              </li>
+              <li class="problem-item">
+                <svg class="problem-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                <span><strong>Inaccessible forms</strong> — unlabeled inputs leave users confused and unable to complete purchases</span>
+              </li>
+              <li class="problem-item">
+                <svg class="problem-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                <span><strong>ADA/AODA lawsuits</strong> — web accessibility litigation hit a record 4,600+ cases in 2023</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Solution card — the Level Up answer -->
+          <div class="solution-card" aria-labelledby="solution-card-heading">
+            <h3 class="solution-card__title" id="solution-card-heading">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              What we do about it
+            </h3>
+            <ul class="solution-list" aria-label="Our accessibility solutions">
+              <li class="solution-item">
+                <svg class="solution-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span><strong>Full WCAG 2.2 audit</strong> — automated and manual, covering all 78 success criteria across your site</span>
+              </li>
+              <li class="solution-item">
+                <svg class="solution-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span><strong>Hands-on remediation</strong> — our developers fix the code directly, not just give you a PDF report</span>
+              </li>
+              <li class="solution-item">
+                <svg class="solution-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span><strong>Legal compliance documentation</strong> — VPATs, accessibility statements, and audit trails for legal protection</span>
+              </li>
+              <li class="solution-item">
+                <svg class="solution-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span><strong>Team training</strong> — so your developers and designers never introduce the same issues again</span>
+              </li>
+              <li class="solution-item">
+                <svg class="solution-item__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span><strong>Ongoing monitoring</strong> — we stay with you so regressions are caught before they become lawsuits</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Trust-building stats — WCAG 1.4.1: not color alone -->
+        <div class="stats-row" aria-label="Accessibility industry statistics">
+          <div class="stat-card">
+            <div class="stat-card__number" aria-label="1 in 4">1 in 4</div>
+            <div class="stat-card__label">US adults have a disability affecting web use</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number" aria-label="96.3 percent">96.3%</div>
+            <div class="stat-card__label">Of home pages have WCAG failures (WebAIM 2024)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number" aria-label="$490 billion">$490B</div>
+            <div class="stat-card__label">Annual spending power of people with disabilities in the US</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number" aria-label="4,600 plus">4,600+</div>
+            <div class="stat-card__label">ADA web accessibility lawsuits filed in 2023</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────
+         SERVICES SECTION
+         
+         Conversion: Show expertise breadth. "Most Popular" badge
+         anchors the full audit as the natural starting point.
+         WCAG: 1.3.1 heading hierarchy, 2.4.6 descriptive headings
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="services-section section" aria-labelledby="services-heading" id="services">
+      <div class="container">
+
+        <div class="section-label" aria-hidden="true">What We Offer</div>
+        <h2 class="section-title" id="services-heading">Services built<br>for real compliance</h2>
+        <p class="section-subtitle">
+          From a single-page audit to an enterprise-wide accessibility programme,
+          we meet you where you are and build toward where you need to be.
+        </p>
+
+        <div class="services-grid">
+
+          <!-- Card 1: Featured — Accessibility Audit (Primary CTA tie-in) -->
+          <article class="service-card service-card--featured" aria-labelledby="service-audit-heading">
+            <span class="service-card__badge" aria-label="Most popular service">Most Popular</span>
+            <div class="service-card__icon service-card__icon--orange" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            </div>
+            <h3 class="service-card__title" id="service-audit-heading">WCAG Accessibility Audit</h3>
+            <p class="service-card__description">
+              A comprehensive evaluation of your website against all WCAG 2.2 success criteria,
+              delivered with actionable priority-ranked remediation steps.
+            </p>
+            <ul class="service-card__features" aria-label="Audit service features">
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Automated + manual testing
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                NVDA, VoiceOver, JAWS testing
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                PDF report with screenshots
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Compliance conformance level
+              </li>
+            </ul>
+            <a class="service-card__cta" href="#audit-form">
+              Start with free audit
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Card 2: Remediation -->
+          <article class="service-card" aria-labelledby="service-remed-heading">
+            <div class="service-card__icon service-card__icon--blue" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3 class="service-card__title" id="service-remed-heading">Accessibility Remediation</h3>
+            <p class="service-card__description">
+              Our front-end specialists fix the accessibility issues directly
+              in your codebase — HTML, CSS, JS, and ARIA. No report-and-run.
+            </p>
+            <ul class="service-card__features" aria-label="Remediation service features">
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Direct codebase fixes
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                React, Vue, Angular capable
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Before/after verification
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Compliance certification
+              </li>
+            </ul>
+            <a class="service-card__cta" href="#audit-form">
+              Discuss remediation
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Card 3: Design Review -->
+          <article class="service-card" aria-labelledby="service-design-heading">
+            <div class="service-card__icon service-card__icon--teal" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 012-2h6a2 2 0 012 2v1.662"/></svg>
+            </div>
+            <h3 class="service-card__title" id="service-design-heading">Inclusive Design Review</h3>
+            <p class="service-card__description">
+              Catch accessibility problems before a single line of code is written.
+              We review Figma files, prototypes, and design systems.
+            </p>
+            <ul class="service-card__features" aria-label="Design review features">
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Figma & Sketch review
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Color palette analysis
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Touch target sizing
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Motion & animation guidance
+              </li>
+            </ul>
+            <a class="service-card__cta" href="#audit-form">
+              Review our process
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Card 4: VPAT / Documentation -->
+          <article class="service-card" aria-labelledby="service-vpat-heading">
+            <div class="service-card__icon service-card__icon--violet" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3 class="service-card__title" id="service-vpat-heading">VPAT & Legal Documentation</h3>
+            <p class="service-card__description">
+              Protect your business with professionally prepared VPATs,
+              accessibility conformance reports, and public accessibility statements.
+            </p>
+            <ul class="service-card__features" aria-label="VPAT documentation features">
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                VPAT 2.4 & ACR preparation
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Accessibility statements
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Section 508 compliance docs
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Legal review support
+              </li>
+            </ul>
+            <a class="service-card__cta" href="#audit-form">
+              Get documentation
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Card 5: Training -->
+          <article class="service-card" aria-labelledby="service-training-heading">
+            <div class="service-card__icon service-card__icon--green" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            </div>
+            <h3 class="service-card__title" id="service-training-heading">Team Training & Workshops</h3>
+            <p class="service-card__description">
+              Equip your developers, designers, and content teams with
+              the knowledge to build accessibly from the start.
+            </p>
+            <ul class="service-card__features" aria-label="Training program features">
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Role-specific workshops
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Hands-on coding exercises
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Onsite or remote delivery
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Certificate of completion
+              </li>
+            </ul>
+            <a class="service-card__cta" href="#audit-form">
+              Train your team
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Card 6: Ongoing Monitoring -->
+          <article class="service-card" aria-labelledby="service-monitor-heading">
+            <div class="service-card__icon service-card__icon--indigo" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 class="service-card__title" id="service-monitor-heading">Continuous Monitoring</h3>
+            <p class="service-card__description">
+              Accessibility is not a one-time fix. Our monitoring keeps
+              your site compliant as content and code evolves.
+            </p>
+            <ul class="service-card__features" aria-label="Monitoring service features">
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Automated weekly scans
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Regression alerts
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Monthly score reports
+              </li>
+              <li class="service-card__feature">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Priority issue escalation
+              </li>
+            </ul>
+            <a class="service-card__cta" href="#audit-form">
+              Start monitoring
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────
+         PORTFOLIO / DEMO SECTION
+         
+         WCAG: 2.1.1 keyboard, 4.1.3 status messages,
+         4.1.2 name/role/value for tabs
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="portfolio-section section" aria-labelledby="portfolio-heading" id="portfolio">
+      <div class="container">
+
+        <div class="section-label" aria-hidden="true">Proof of Work</div>
+        <h2 class="section-title" id="portfolio-heading">Real audits.<br>Real results.</h2>
+        <p class="section-subtitle">
+          See the kinds of issues we find and the improvements we deliver.
+          Every project ends with measurable, documented accessibility gains.
+        </p>
+
+        <!-- Live demo tabs — accessible tab pattern -->
+        <div class="demo-container">
+          <!-- WCAG 4.1.2: role="tablist" with aria-label -->
+          <div
+            class="demo-tabs"
+            role="tablist"
+            aria-label="Sample audit findings by site type"
+          >
+            <button
+              class="demo-tab"
+              id="tab-ecommerce"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-ecommerce"
+              type="button"
+            >E-commerce Site</button>
+            <button
+              class="demo-tab"
+              id="tab-saas"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-saas"
+              type="button"
+              tabindex="-1"
+            >SaaS Dashboard</button>
+            <button
+              class="demo-tab"
+              id="tab-ngo"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-ngo"
+              type="button"
+              tabindex="-1"
+            >Non-Profit Site</button>
+          </div>
+
+          <!-- Tab panels -->
+          <div
+            id="panel-ecommerce"
+            role="tabpanel"
+            aria-labelledby="tab-ecommerce"
+            class="demo-panel is-active"
+          >
+            <div class="demo-issue demo-issue--critical">
+              <span class="demo-issue__badge demo-issue__badge--critical">Critical</span>
+              <div>
+                <div class="demo-issue__title">Product images missing alt text</div>
+                <div class="demo-issue__desc">847 product images have no alt attribute. Screen reader users cannot understand product offerings, directly impacting sales for 8% of your potential customers.</div>
+                <div class="demo-issue__wcag">WCAG 1.1.1 Non-text Content (A)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--critical">
+              <span class="demo-issue__badge demo-issue__badge--critical">Critical</span>
+              <div>
+                <div class="demo-issue__title">Checkout form — unlabeled inputs</div>
+                <div class="demo-issue__desc">Payment form fields use placeholder text only as labels. When a user focuses an input, the placeholder disappears and the field purpose is lost — causing errors and abandoned checkouts.</div>
+                <div class="demo-issue__wcag">WCAG 1.3.1 Info & Relationships (A), 3.3.2 Labels (A)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--warning">
+              <span class="demo-issue__badge demo-issue__badge--warning">Warning</span>
+              <div>
+                <div class="demo-issue__title">Color contrast failure on sale badges</div>
+                <div class="demo-issue__desc">White "#SALE" text on yellow (#FFD700) background achieves only 1.1:1 contrast ratio. Minimum required is 4.5:1. Effectively invisible to low-vision users.</div>
+                <div class="demo-issue__wcag">WCAG 1.4.3 Contrast Minimum (AA)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--warning">
+              <span class="demo-issue__badge demo-issue__badge--warning">Warning</span>
+              <div>
+                <div class="demo-issue__title">Modal focus trap missing</div>
+                <div class="demo-issue__desc">Quick-view product modal does not trap keyboard focus. Tab key exits modal into background page, leaving keyboard users unable to interact with or close the dialog properly.</div>
+                <div class="demo-issue__wcag">WCAG 2.1.2 No Keyboard Trap (A) — but inverse problem</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="panel-saas"
+            role="tabpanel"
+            aria-labelledby="tab-saas"
+            class="demo-panel"
+            hidden
+          >
+            <div class="demo-issue demo-issue--critical">
+              <span class="demo-issue__badge demo-issue__badge--critical">Critical</span>
+              <div>
+                <div class="demo-issue__title">Data table — no column headers</div>
+                <div class="demo-issue__desc">Analytics tables use &lt;div&gt; elements without &lt;th&gt; or scope attributes. Screen reader users hear raw numbers with no context about what each column represents.</div>
+                <div class="demo-issue__wcag">WCAG 1.3.1 Info & Relationships (A)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--critical">
+              <span class="demo-issue__badge demo-issue__badge--critical">Critical</span>
+              <div>
+                <div class="demo-issue__title">Icon-only buttons with no accessible names</div>
+                <div class="demo-issue__desc">24 toolbar buttons use only SVG icons with no text or aria-label. Screen reader users hear "button button button" with no indication of what each button does.</div>
+                <div class="demo-issue__wcag">WCAG 4.1.2 Name, Role, Value (A)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--warning">
+              <span class="demo-issue__badge demo-issue__badge--warning">Warning</span>
+              <div>
+                <div class="demo-issue__title">Toast notifications — not announced</div>
+                <div class="demo-issue__desc">Success/error toasts appear visually but are never announced to screen readers. User actions complete silently for AT users — they never know if their save succeeded.</div>
+                <div class="demo-issue__wcag">WCAG 4.1.3 Status Messages (AA)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--info">
+              <span class="demo-issue__badge demo-issue__badge--info">Info</span>
+              <div>
+                <div class="demo-issue__title">Focus indicator missing on custom inputs</div>
+                <div class="demo-issue__desc">Custom-styled toggle switches and dropdowns suppress the browser's default focus ring with outline:none and provide no replacement. Keyboard users cannot tell which element has focus.</div>
+                <div class="demo-issue__wcag">WCAG 2.4.7 Focus Visible (AA), 2.4.11 Focus Appearance (AAA)</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="panel-ngo"
+            role="tabpanel"
+            aria-labelledby="tab-ngo"
+            class="demo-panel"
+            hidden
+          >
+            <div class="demo-issue demo-issue--critical">
+              <span class="demo-issue__badge demo-issue__badge--critical">Critical</span>
+              <div>
+                <div class="demo-issue__title">Donation form — no error recovery</div>
+                <div class="demo-issue__desc">When form validation fails, errors are displayed visually but never communicated to screen readers. AT users submit the form, hear nothing, and don't know why the donation failed.</div>
+                <div class="demo-issue__wcag">WCAG 3.3.1 Error Identification (A), 3.3.3 Error Suggestion (AA)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--warning">
+              <span class="demo-issue__badge demo-issue__badge--warning">Warning</span>
+              <div>
+                <div class="demo-issue__title">Video — no captions or transcript</div>
+                <div class="demo-issue__desc">4 impact story videos have no closed captions and no text transcripts. Deaf visitors and those with audio processing difficulties cannot access the content.</div>
+                <div class="demo-issue__wcag">WCAG 1.2.2 Captions Pre-recorded (A)</div>
+              </div>
+            </div>
+            <div class="demo-issue demo-issue--info">
+              <span class="demo-issue__badge demo-issue__badge--info">Info</span>
+              <div>
+                <div class="demo-issue__title">Language not set on translated pages</div>
+                <div class="demo-issue__desc">Spanish and French pages have lang="en" on the HTML element. Screen readers pronounce the content with wrong phonetics, making it incomprehensible to native speakers using AT.</div>
+                <div class="demo-issue__wcag">WCAG 3.1.2 Language of Parts (AA)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case study cards -->
+        <h3 style="font-family: var(--font-display); font-size: var(--text-2xl); margin-top: var(--space-16); margin-bottom: var(--space-4); letter-spacing: -0.02em;">Client outcomes</h3>
+        <div class="case-studies" aria-label="Client case study results">
+
+          <article class="case-card" aria-labelledby="case-1-name">
+            <div class="case-card__header">
+              <div>
+                <div class="case-card__company" id="case-1-name">RetailCo Online</div>
+                <div class="case-card__industry">E-commerce · 2,400 pages</div>
+              </div>
+              <div class="case-card__score" aria-label="Accessibility score after: 96 out of 100">
+                <div class="case-card__score-value">96</div>
+                <div class="case-card__score-label">Score after</div>
+              </div>
+            </div>
+            <div class="case-card__body">
+              <p style="font-size: var(--text-sm); color: var(--color-neutral-500); margin-bottom: var(--space-4); line-height: 1.6">
+                Started at 38/100 with 214 critical WCAG violations. Full remediation completed in 6 weeks.
+                ADA lawsuit threat resolved with documented compliance evidence.
+              </p>
+              <div class="case-card__results">
+                <div class="case-result">
+                  <div class="case-result__value">+31%</div>
+                  <div class="case-result__label">Conversion from AT users</div>
+                </div>
+                <div class="case-result">
+                  <div class="case-result__value">0</div>
+                  <div class="case-result__label">Legal threats since</div>
+                </div>
+                <div class="case-result">
+                  <div class="case-result__value">6wk</div>
+                  <div class="case-result__label">Time to full compliance</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card" aria-labelledby="case-2-name">
+            <div class="case-card__header">
+              <div>
+                <div class="case-card__company" id="case-2-name">DataFlow SaaS</div>
+                <div class="case-card__industry">B2B SaaS · 340k users</div>
+              </div>
+              <div class="case-card__score" aria-label="Accessibility score after: 98 out of 100">
+                <div class="case-card__score-value">98</div>
+                <div class="case-card__score-label">Score after</div>
+              </div>
+            </div>
+            <div class="case-card__body">
+              <p style="font-size: var(--text-sm); color: var(--color-neutral-500); margin-bottom: var(--space-4); line-height: 1.6">
+                Enterprise customers requiring Section 508 compliance were blocking procurement.
+                After Level Up, they closed $2.4M in government contracts.
+              </p>
+              <div class="case-card__results">
+                <div class="case-result">
+                  <div class="case-result__value">$2.4M</div>
+                  <div class="case-result__label">New gov. contracts won</div>
+                </div>
+                <div class="case-result">
+                  <div class="case-result__value">508</div>
+                  <div class="case-result__label">Section certified</div>
+                </div>
+                <div class="case-result">
+                  <div class="case-result__value">3mo</div>
+                  <div class="case-result__label">Full programme</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────
+         TESTIMONIALS SECTION
+         
+         Conversion: Social proof reduces perceived risk.
+         WCAG: 1.3.1, 2.4.6
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="testimonials-section section" aria-labelledby="testimonials-heading" id="testimonials">
+      <div class="container">
+
+        <div class="section-label" aria-hidden="true">What Clients Say</div>
+        <h2 class="section-title" id="testimonials-heading">Trusted by teams<br>that take inclusion seriously</h2>
+
+        <div class="testimonial-grid" aria-label="Client testimonials">
+
+          <article class="testimonial-card">
+            <!-- Decorative quote mark — hidden from AT -->
+            <div aria-hidden="true" class="testimonial-card__quote-mark"></div>
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="testimonial-card__quote">
+              We were served a demand letter on a Wednesday. Level Up had a full audit back to us by Friday and our lawyers had documentation within the week. The speed and quality were unreal.
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">SR</div>
+              <div>
+                <div class="testimonial-card__name">Sarah Rennick</div>
+                <div class="testimonial-card__role">Head of Digital · Bloom Commerce</div>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="testimonial-card__quote">
+              Our government RFPs now specifically require Section 508. Level Up got us there in three months, and the training meant our team actually understood why, not just what to change.
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">MK</div>
+              <div>
+                <div class="testimonial-card__name">Marcus Ky</div>
+                <div class="testimonial-card__role">CTO · DataFlow Analytics</div>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="testimonial-card__star" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="testimonial-card__quote">
+              I expected a report with a list of things to Google. Instead they fixed it. Every issue, every page, with before-and-after screenshots. Worth every penny, and then some.
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">JP</div>
+              <div>
+                <div class="testimonial-card__name">Jana Patel</div>
+                <div class="testimonial-card__role">Founder · Willow Health SaaS</div>
+              </div>
+            </footer>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────
+         LEAD CAPTURE SECTION
+         
+         Conversion: Free audit lead magnet. Low-friction form (only
+         essential fields). Clear next step communicated post-submit.
+         
+         WCAG: 1.3.1, 1.3.5 (autocomplete), 2.4.6, 3.3.1, 3.3.2, 3.3.3,
+               3.3.4 (error prevention), 4.1.3 (status messages)
+         
+         CTA placement rationale: Appears AFTER social proof (testimonials)
+         to convert warm leads. Also anchored in hero and sticky bar.
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="audit-section" aria-labelledby="audit-heading" id="audit-form">
+      <div class="container">
+        <div class="audit-grid">
+
+          <!-- Left copy -->
+          <div class="audit-copy">
+            <div class="section-label" style="color: #ffa07a; border-color: rgba(232,76,14,0.5); background: rgba(232,76,14,0.15);" aria-hidden="true">Free Audit</div>
+            <h2 class="audit-copy__title" id="audit-heading">
+              Find out exactly<br>where your site fails<br>
+              <em style="font-style:normal; color: var(--color-orange-500)">— for free.</em>
+            </h2>
+            <p class="audit-copy__subtitle">
+              Enter your URL and we'll run a comprehensive accessibility review
+              and send you a prioritised report within 24 hours. No sales call required.
+            </p>
+
+            <ul class="audit-copy__benefits" aria-label="What you get in the free audit">
+              <li class="audit-benefit">
+                <div class="audit-benefit__icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div class="audit-benefit__text"><strong>WCAG violation scan</strong> — automated scan across all public pages of your website</div>
+              </li>
+              <li class="audit-benefit">
+                <div class="audit-benefit__icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div class="audit-benefit__text"><strong>Prioritised issue list</strong> — critical, serious, moderate and minor issues ranked by impact</div>
+              </li>
+              <li class="audit-benefit">
+                <div class="audit-benefit__icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div class="audit-benefit__text"><strong>Legal risk assessment</strong> — how exposed your business is to ADA, AODA, and EAA litigation</div>
+              </li>
+              <li class="audit-benefit">
+                <div class="audit-benefit__icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div class="audit-benefit__text"><strong>Custom fix recommendations</strong> — plain-English steps your dev team can act on immediately</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: Form -->
+          <div class="audit-form-card">
+            <div class="audit-form-card__header">
+              <h3 class="audit-form-card__title">Request your free audit</h3>
+              <p class="audit-form-card__subtitle">Results delivered by email within 24 hours</p>
+            </div>
+
+            <!--
+              WCAG 3.3.4 Error Prevention: form validates before submit.
+              WCAG 1.3.5 Identify Input Purpose: autocomplete attributes set.
+              WCAG 4.1.3 Status Messages: success/error messages use role="status" / role="alert".
+            -->
+            <form
+              id="audit-request-form"
+              novalidate
+              aria-describedby="form-instructions"
+            >
+              <p id="form-instructions" class="sr-only">
+                All fields marked with an asterisk (*) are required.
+                Form errors will be announced after you attempt to submit.
+              </p>
+
+              <!-- Name -->
+              <div class="form-group">
+                <label class="form-label" for="field-name">
+                  Your name <span class="form-label__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="field-name"
+                  name="name"
+                  class="form-input"
+                  autocomplete="given-name"
+                  aria-required="true"
+                  aria-describedby="error-name"
+                  placeholder="Jane Smith"
+                >
+                <span id="error-name" class="form-error" role="alert" aria-live="assertive">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                  Please enter your name
+                </span>
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label class="form-label" for="field-email">
+                  Work email <span class="form-label__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="field-email"
+                  name="email"
+                  class="form-input"
+                  autocomplete="email"
+                  aria-required="true"
+                  aria-describedby="error-email"
+                  placeholder="jane@company.com"
+                >
+                <span id="error-email" class="form-error" role="alert" aria-live="assertive">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                  Please enter a valid email address
+                </span>
+              </div>
+
+              <!-- Website URL -->
+              <div class="form-group">
+                <label class="form-label" for="field-url">
+                  Website URL <span class="form-label__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="url"
+                  id="field-url"
+                  name="url"
+                  class="form-input"
+                  autocomplete="url"
+                  aria-required="true"
+                  aria-describedby="error-url url-hint"
+                  placeholder="https://yoursite.com"
+                >
+                <span id="url-hint" style="font-size:var(--text-xs); color: var(--color-neutral-500); margin-top:var(--space-1); display:block">
+                  Include https:// — e.g. https://yourcompany.com
+                </span>
+                <span id="error-url" class="form-error" role="alert" aria-live="assertive">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                  Please enter a valid URL starting with https://
+                </span>
+              </div>
+
+              <!-- Service type -->
+              <div class="form-group">
+                <label class="form-label" for="field-service">
+                  What's your main concern?
+                </label>
+                <select
+                  id="field-service"
+                  name="service"
+                  class="form-input"
+                  autocomplete="off"
+                >
+                  <option value="">Select an option…</option>
+                  <option value="legal-risk">Legal risk / potential lawsuit</option>
+                  <option value="compliance">WCAG / Section 508 compliance</option>
+                  <option value="enterprise">Enterprise procurement requirement</option>
+                  <option value="inclusive">Building a more inclusive product</option>
+                  <option value="monitoring">Ongoing monitoring</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Consent -->
+              <div class="form-checkbox-group">
+                <input
+                  type="checkbox"
+                  id="field-consent"
+                  name="consent"
+                  class="form-checkbox"
+                  aria-required="true"
+                  aria-describedby="error-consent"
+                >
+                <label class="form-checkbox-label" for="field-consent">
+                  I agree to receive the free audit report by email. We'll never
+                  share your data or spam you. Read our
+                  <a href="#privacy">privacy policy</a>.
+                  <span class="form-label__required" aria-hidden="true"> *</span>
+                </label>
+              </div>
+              <span id="error-consent" class="form-error" role="alert" aria-live="assertive">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                Please accept to receive your report
+              </span>
+
+              <button
+                type="submit"
+                class="btn btn--primary btn--lg form-submit-btn"
+              >
+                <svg class="btn__icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                Get My Free Audit Report
+              </button>
+
+              <p class="form-privacy-note" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                Your data is encrypted and never sold
+              </p>
+
+              <!-- WCAG 4.1.3: Success announced to AT via role="status" -->
+              <div
+                id="form-success"
+                class="form-success-message"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <div class="form-success-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                </div>
+                <h4 style="font-family: var(--font-display); font-size: var(--text-xl); margin-bottom: var(--space-2)">You're in! Check your inbox.</h4>
+                <p style="font-size: var(--text-sm); color: var(--color-neutral-500); max-width: 32ch; text-align: center; line-height: 1.6">
+                  Your free accessibility audit report will arrive within 24 hours.
+                  While you wait, reply to introduce your team.
+                </p>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────
+         TRUST SECTION
+         
+         WCAG standards we certify against, industry credibility signals
+    ─────────────────────────────────────────────────────────────────── -->
+    <section class="trust-section section" aria-labelledby="trust-heading" id="trust">
+      <div class="container">
+
+        <div class="section-label" aria-hidden="true">Why Trust Us</div>
+        <h2 class="section-title" id="trust-heading">Standards-certified.<br>Independently verified.</h2>
+        <p class="section-subtitle">
+          We don't just understand the guidelines — we live by them.
+          Our own site achieves the same standards we deliver for clients.
+        </p>
+
+        <div class="trust-badges" aria-label="Trust and certification badges">
+
+          <div class="trust-badge">
+            <div class="trust-badge__icon" style="background: var(--color-blue-50)">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue-700)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 11l3 3L22 4"/></svg>
+            </div>
+            <div class="trust-badge__name">WCAG 2.2 AA</div>
+            <div class="trust-badge__desc">This site complies with all WCAG 2.2 Level AA criteria</div>
+          </div>
+
+          <div class="trust-badge">
+            <div class="trust-badge__icon" style="background: #fef9c3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a16207" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="trust-badge__name">Lighthouse 97+</div>
+            <div class="trust-badge__desc">Accessibility score verified on every client delivery</div>
+          </div>
+
+          <div class="trust-badge">
+            <div class="trust-badge__icon" style="background: #f0fdf4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="trust-badge__name">ADA Compliant</div>
+            <div class="trust-badge__desc">Americans with Disabilities Act Title III aligned</div>
+          </div>
+
+          <div class="trust-badge">
+            <div class="trust-badge__icon" style="background: #fdf4ff">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7e22ce" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="trust-badge__name">VPAT Certified</div>
+            <div class="trust-badge__desc">Formal accessibility conformance documentation available</div>
+          </div>
+
+          <div class="trust-badge">
+            <div class="trust-badge__icon" style="background: #fff1f2">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#be123c" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div class="trust-badge__name">Section 508</div>
+            <div class="trust-badge__desc">US Federal accessibility requirements for government contracts</div>
+          </div>
+
+          <div class="trust-badge">
+            <div class="trust-badge__icon" style="background: #f0fdf4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="trust-badge__name">Core Web Vitals</div>
+            <div class="trust-badge__desc">Performance-first — accessibility without speed cost</div>
+          </div>
+
+        </div>
+
+        <!-- Compliance standards list -->
+        <div class="compliance-row" aria-labelledby="standards-label">
+          <p id="standards-label" class="compliance-row__label">Standards we work with</p>
+          <ul class="compliance-standards" role="list" aria-label="Accessibility standards and frameworks">
+            <li><span class="compliance-tag">WCAG 2.0</span></li>
+            <li><span class="compliance-tag">WCAG 2.1</span></li>
+            <li><span class="compliance-tag">WCAG 2.2</span></li>
+            <li><span class="compliance-tag">WCAG 3.0 (draft)</span></li>
+            <li><span class="compliance-tag">ADA Title III</span></li>
+            <li><span class="compliance-tag">Section 508</span></li>
+            <li><span class="compliance-tag">AODA</span></li>
+            <li><span class="compliance-tag">EN 301 549</span></li>
+            <li><span class="compliance-tag">EAA 2025</span></li>
+            <li><span class="compliance-tag">ATAG 2.0</span></li>
+            <li><span class="compliance-tag">UAAG 2.0</span></li>
+            <li><span class="compliance-tag">ARIA 1.2</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SITE FOOTER — landmark <footer>
+  ═══════════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand column -->
+        <div class="footer-brand">
+          <a class="footer-brand__logo" href="/" aria-label="Level Up Accessibility — home">
+            <img
+              src="assets/images/logo.png"
+              alt="Level Up logo"
+              width="40"
+              height="40"
+              loading="lazy"
+            >
+            <span class="footer-brand__name">Level <span>Up</span></span>
+          </a>
+          <p class="footer-brand__tagline">
+            Making the web accessible for everyone. WCAG 2.2 AA compliance
+            specialists since 2018.
+          </p>
+          <!-- Social links — descriptive aria-labels -->
+          <nav class="footer-social" aria-label="Social media links">
+            <a class="footer-social__link" href="https://linkedin.com/company/levelupaccessibility" aria-label="Level Up on LinkedIn" rel="noopener noreferrer" target="_blank">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a class="footer-social__link" href="https://twitter.com/levelupa11y" aria-label="Level Up on Twitter / X" rel="noopener noreferrer" target="_blank">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a class="footer-social__link" href="https://github.com/levelupaccessibility" aria-label="Level Up on GitHub" rel="noopener noreferrer" target="_blank">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Services column -->
+        <div>
+          <h3 class="footer-col__heading">Services</h3>
+          <nav aria-label="Services footer navigation">
+            <ul class="footer-links" role="list">
+              <li><a href="#services">WCAG Audit</a></li>
+              <li><a href="#services">Remediation</a></li>
+              <li><a href="#services">Design Review</a></li>
+              <li><a href="#services">VPAT / ACR</a></li>
+              <li><a href="#services">Training</a></li>
+              <li><a href="#services">Monitoring</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Company column -->
+        <div>
+          <h3 class="footer-col__heading">Company</h3>
+          <nav aria-label="Company footer navigation">
+            <ul class="footer-links" role="list">
+              <li><a href="#portfolio">Our Work</a></li>
+              <li><a href="#testimonials">Client Results</a></li>
+              <li><a href="#trust">Certifications</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#blog">Blog</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Legal column -->
+        <div>
+          <h3 class="footer-col__heading">Resources</h3>
+          <nav aria-label="Resources footer navigation">
+            <ul class="footer-links" role="list">
+              <li><a href="#audit-form">Free Audit</a></li>
+              <li><a href="#wcag-guide">WCAG 2.2 Guide</a></li>
+              <li><a href="#accessibility-statement">Accessibility Statement</a></li>
+              <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
+              <li><a href="#terms">Terms of Service</a></li>
+              <li><a href="mailto:hello@levelupaccessibility.com">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-bottom__copy">
+          &copy; <span id="footer-year">2025</span> Level Up Accessibility Agency. All rights reserved.<br>
+          This site meets WCAG 2.2 Level AA. Report an accessibility issue:
+          <a href="mailto:accessibility@levelupaccessibility.com" style="color:rgba(255,255,255,0.6)">accessibility@levelupaccessibility.com</a>
+        </p>
+        <div class="footer-bottom__legal">
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#accessibility-statement">Accessibility</a>
+          <a href="#sitemap">Sitemap</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       STICKY CTA BAR
+       Appears after user scrolls past hero. Dismissed permanently.
+       WCAG: 2.1.1 keyboard, 4.1.2 name/role/value
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div
+    id="sticky-cta"
+    class="sticky-cta"
+    role="complementary"
+    aria-label="Free audit offer"
+  >
+    <div class="sticky-cta__text">
+      <strong>Is your website accessible?</strong>
+      Get your free WCAG audit — no obligation.
+    </div>
+    <a class="btn btn--primary btn--sm" href="#audit-form">Free Audit</a>
+    <button
+      class="sticky-cta__dismiss"
+      id="sticky-cta-dismiss"
+      aria-label="Dismiss this offer"
+      type="button"
+    >
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- ─── JavaScript ────────────────────────────────────────────────── -->
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
